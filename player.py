@@ -4,10 +4,11 @@
 
 import pygame
 from pygame.locals import *
-
 from grille import Grille
-from config import * 
+from config import *
+from Colors import *
 
+pygame.init()
 
 class Player:
     def __init__(self, grille):
@@ -25,25 +26,29 @@ class Player:
         self.y = self.pos[1]/SIZE
 
     def drawPlayer(self, screen):
-        screen.blit(self.position, (self.x * SIZE, self.y * SIZE))
+        screen.blit(self.position, (self.x * SIZE + 150, self.y * SIZE + 100))
 
     def move(self, key):
         if key == K_LEFT:
-            self.position = self.gauche
-            if not self.checkCollision():
-                self.x -= 1
+			self.position = self.gauche
+			
+			if not self.checkCollision():
+				self.x -= 1
         elif key == K_RIGHT:
-            self.position = self.droite
-            if not self.checkCollision():
-                self.x += 1
+			self.position = self.droite
+			
+			if not self.checkCollision():
+				self.x += 1
         elif key == K_UP:
-            self.position = self.haut
-            if not self.checkCollision():
-                self.y -= 1
+			self.position = self.haut
+			
+			if not self.checkCollision():
+				self.y -= 1
         elif key == K_DOWN:
-            self.position = self.bas
-            if not self.checkCollision():
-                self.y += 1
+			self.position = self.bas
+			
+			if not self.checkCollision():
+				self.y += 1
 
     def checkCollision(self):
         self.hauty = self.y - 1

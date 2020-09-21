@@ -6,9 +6,12 @@ from config import *
 import time
 from pygame import font
 class Grille:
-
+    lvls = ['lvl/lv0','lvl/lv1','lvl/lv2','lvl/lv3']
+    i = 0
+    lvl = lvls[i]
     def __init__(self, fichier):
         self.ref_img = {
+			MENU:pygame.image.load("img/menu.jpg"),
             MUR: pygame.image.load("img/mur.jpg"),
             CAISSE: pygame.image.load("img/caisse.jpg"),
             OBJECTIF: pygame.image.load("img/objectif.png"),
@@ -32,7 +35,7 @@ class Grille:
                     x += 1
 
                 else:
-                    screen.blit(self.ref_img[img], (x*SIZE, y*SIZE))        
+                    screen.blit(self.ref_img[img], (x*SIZE + 150, y*SIZE + 100))        
 
 
     
@@ -40,7 +43,7 @@ class Grille:
         for y in range(len(self.lvtest)):
             for x in range(len(self.lvtest[y])):
                 if self.lvtest[y][x] == PLAYER :
-                    return (x*SIZE, y*SIZE)
+                    return (x*SIZE + 150, y*SIZE+150)
 
 
     #---Déplacement des caisses ---#
@@ -100,11 +103,22 @@ class Grille:
         return False
     
     def is_fini(self):
-    
         lis = [self.lvtest[y][x] for (x, y) in self.coord_objec]
-    
         return lis.count(CAISSE_OK) == len(self.coord_objec)
+    def genMap(self,level):
+		i = 0
+		if self.is_fini():
+			screen.blit(self.ref_img[MENU], (x*SIZE + 150, y*SIZE + 100))        
+
+		else:
+			level = level[i]
+		i += 1
+		
+    
 
 if __name__ == '__main__' :
+    
     g = Grille()
-    g.genMap("lv2")
+    g.genMap(lvl)
+   
+    
